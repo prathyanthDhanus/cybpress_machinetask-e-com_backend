@@ -9,7 +9,7 @@ const Category = require("../../app/category/controller");
 
 router.post("/",authMiddleware(["admin"]),upload.single("image"),tryCatch(Category.createCategory));
 
-router.get("/",authMiddleware(["admin,user"]),tryCatch(Category.getAllCategories));
+router.get("/",authMiddleware(["admin","user"]),tryCatch(Category.getAllCategories));
 router.get("/:categoryId",authMiddleware(["admin"]),tryCatch(Category.getCategoryById));
 
 router.put("/:categoryId",upload.single("image"),authMiddleware(["admin"]),Category.updateCategory);
