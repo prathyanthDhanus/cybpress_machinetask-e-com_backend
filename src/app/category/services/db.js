@@ -53,7 +53,7 @@ module.exports = {
 
   //  ===================== update category by id =========================
 
-  updateCategoryDb: async (categoryData) => {
+  updateCategoryDb: async (categoryData,image) => {
     const existingCategory = await Category.findById(categoryData.categoryId);
     if (!existingCategory) {
       throw new AppError(
@@ -63,8 +63,10 @@ module.exports = {
       );
     }
 
-    if (!image) {
-      image = existingCategory.image;
+    if (image) {
+      categoryData.image = image;
+    } else {
+      categoryData.image = existingCategory.image;
     }
     const updateCategory = await Category.findByIdAndUpdate(
       categoryData.categoryId,

@@ -1,5 +1,5 @@
 const Product = require("../model/productSchema");
-const AppError = require();
+const AppError = require("../../../middlewares/appError");
 
 module.exports = {
   //  ===================== create product =========================
@@ -25,7 +25,7 @@ module.exports = {
   //  ===================== get all products =========================
 
   getAllProductsDb: async () => {
-    const findAllProducts = await Product.find();
+    const findAllProducts = await Product.find().populate("Category");
 
     if (findAllProducts.length === 0) {
       throw new AppError(

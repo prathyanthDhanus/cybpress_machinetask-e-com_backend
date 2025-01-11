@@ -12,7 +12,7 @@ router.post("/",authMiddleware(["admin"]),upload.single("image"),tryCatch(Catego
 router.get("/",authMiddleware(["admin","user"]),tryCatch(Category.getAllCategories));
 router.get("/:categoryId",authMiddleware(["admin"]),tryCatch(Category.getCategoryById));
 
-router.put("/:categoryId",upload.single("image"),authMiddleware(["admin"]),Category.updateCategory);
+router.put("/:categoryId",authMiddleware(["admin"]),upload.single("image"),Category.updateCategory);
 
 router.delete("/:categoryId",authMiddleware(["admin"]),Category.deleteCategory);
 

@@ -4,16 +4,16 @@ module.exports = {
   //  ===================== create product =========================
 
   createProduct: async (req, res) => {
-    const { name, description, price, category, variants } = req.body;
+    const { name, description, price, category,variants } = req.body;
 
-    if (!name || !description || !price || !category || !variants) {
+    if (!name || !description || !price || !category ) {
       return res.status(400).json({
         status: "failure",
         message: "Missing required fields",
         error_message: "Field validation error: All fields are required",
       });
     }
-
+    
     const productData = { name, description, price, category, variants };
     const saveProduct = await createProductDb(productData);
     return res.status(201).json({
@@ -34,7 +34,7 @@ module.exports = {
     });
   },
 
-  //  ===================== get product by id =========================
+  //  ===================== get products by id =========================
 
   getProductById: async (req, res) => {
     const productId = req.params.productId;

@@ -10,8 +10,8 @@ router.post("/",authMiddleware(["admin"]),tryCatch(Product.createProduct));
 router.get("/",authMiddleware(["admin","user"]),tryCatch(Product.getAllProducts));
 router.get("/:productId",authMiddleware(["admin","user"]),tryCatch(Product.getProductById));
 
-router.put("/",authMiddleware(["admin"]),tryCatch(Product.updateProduct));
+router.put("/:productId",authMiddleware(["admin"]),tryCatch(Product.updateProduct));
 
-router.delete("/",authMiddleware(["admin"]),tryCatch(Product.deleteProduct));
+router.delete("/:productId",authMiddleware(["admin"]),tryCatch(Product.deleteProduct));
 
 module.exports = router;

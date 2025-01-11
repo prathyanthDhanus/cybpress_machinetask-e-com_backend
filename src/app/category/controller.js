@@ -67,8 +67,8 @@ module.exports = {
         error_message: "Field validation error: All fields are required",
       });
     }
-    const categoryData = { categoryName, description, image, categoryId };
-    const updateCategory = await updateCategoryDb(categoryData);
+    const categoryData = { categoryName, description, categoryId };
+    const updateCategory = await updateCategoryDb(categoryData,image);
     return res.status(201).json({
       status: "success",
       message: "Category updated successfully ",
