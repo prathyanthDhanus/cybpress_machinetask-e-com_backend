@@ -13,9 +13,11 @@ const authMiddleware = (roles = []) => {
       // Verify the token and decode the payload
       const decoded = jwt.verify(token, process.env.USERSECRET_KEY);
       req.user = decoded; 
-
+    //  console.log(req.user)
       // If roles are passed in the middleware, check if the user's role matches
       if (roles.length && !roles.includes(req.user.role)) {
+        // console.log(req.user.role)
+      
         return res.status(403).json({ message: "Access denied 🚫" });
       }
 

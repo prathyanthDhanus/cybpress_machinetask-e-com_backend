@@ -31,7 +31,7 @@ module.exports = {
   loginAuthDb: async (email, password) => {
 
     const findUser = await User.findOne({ email: email });
-
+   
     if (!findUser) {
       throw new AppError(
         "User not found.Please verify your email address",
@@ -49,7 +49,7 @@ module.exports = {
         401
       );
     }
-    const generateToken = await userTokenService(findUser._id);
+    const generateToken = await userTokenService(findUser._id,findUser.role);
     return generateToken;
   },
 };

@@ -10,7 +10,8 @@ module.exports = {
   //  ===================== create category =========================
 
   createCategory: async (req, res) => {
-    const { categoryName, description, image } = req.body;
+    const { categoryName, description } = req.body;
+    const image = req.file ? req.file.path : null;
 
     if (!categoryName || !description || !image) {
       return res.status(400).json({
@@ -56,8 +57,9 @@ module.exports = {
 
   updateCategory: async (req, res) => {
     const categoryId = req.params.categoryId;
-    const { categoryName, description, image } = req.body;
-
+    const { categoryName, description } = req.body;
+    let image = req.file ? req.file.path : null;
+   
     if (!categoryName || !description || !image) {
       return res.status(400).json({
         status: "failure",

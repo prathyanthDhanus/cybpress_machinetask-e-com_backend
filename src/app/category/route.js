@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../../middlewares/multer");
 const tryCatch = require("../../middlewares/tryCatch");
 const authMiddleware = require("../../middlewares/authMiddleware");
 const Category = require("../../app/category/controller");
 
 
 
-router.post("/",authMiddleware(["admin"]),tryCatch(Category.createCategory));
+router.post("/",authMiddleware(["admin"]),upload.single("image"),tryCatch(Category.createCategory));
 
+router.get("/",authMiddleware(["admin,user"]),tryCatch(Category.getAllCategories));
+router.get("/:categoryId",authMiddleware(["admin"]),tryCatch(Category.getCategoryById));
 
+router.put("/:categoryId",upload.single("image"),authMiddleware(["admin"]),Category.updateCategory);
+
+router.delete("/:categoryId",authMiddleware(["admin"]),Category.deleteCategory);
 
 
 

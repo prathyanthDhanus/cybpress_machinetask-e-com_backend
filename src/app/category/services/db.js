@@ -54,19 +54,24 @@ module.exports = {
   //  ===================== update category by id =========================
 
   updateCategoryDb: async (categoryData) => {
-    const modifyCategory = await Category.findByIdAndUpdate(
-      categoryData.categoryId,
-      categoryData,
-      { new: true }
-    );
-    if (!modifyCategory) {
+    const existingCategory = await Category.findById(categoryData.categoryId);
+    if (!existingCategory) {
       throw new AppError(
         "Category not found",
         "Data not found : Category does not exist.",
         404
       );
     }
-    return modifyCategory;
+
+    if (!image) {
+      image = existingCategory.image;
+    }
+    const updateCategory = await Category.findByIdAndUpdate(
+      categoryData.categoryId,
+      categoryData,
+      { new: true }
+    );
+    return updateCategory;
   },
 
   //  ===================== delete category by id =========================
