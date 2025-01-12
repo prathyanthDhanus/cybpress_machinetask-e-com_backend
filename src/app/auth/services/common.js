@@ -55,7 +55,7 @@ module.exports = {
       return res.status(401).json({ error: "Access Token Not Found ❌" });
     }
 
-    const refreshToken = req.body.refreshToken; // Assuming refresh token is sent in the body.
+    const refreshToken = req.body.refreshToken; 
     if (!refreshToken) {
       return res.status(422).json({ error: "Refresh Token Not Found ❌" });
     }

@@ -1,4 +1,4 @@
-const { createProductDb ,getAllProductsDb,getProductByIdDb,updateProductDb,deleteProductDb} = require("./services/db");
+const { createProductDb ,getAllProductsByCategoryDb,getProductByIdDb,updateProductDb,deleteProductDb} = require("./services/db");
 
 module.exports = {
   //  ===================== create product =========================
@@ -23,10 +23,12 @@ module.exports = {
     });
   },
 
-  //  ===================== get all products =========================
+  //  ===================== get all products category wise =========================
 
-  getAllProducts: async (req, res) => {
-    const fetchAllProducts = await getAllProductsDb();
+  getAllProductsByCategory: async (req, res) => {
+    const categoryId = req.params.categoryId;
+  
+    const fetchAllProducts = await getAllProductsByCategoryDb(categoryId);
     return res.status(200).json({
       status: "success",
       message: "Successfully fetched all products ",

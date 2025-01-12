@@ -13,7 +13,7 @@ module.exports = {
       color: color,
     });
 
-    if (findvariant.length === 0) {
+    if (findvariant) {
       throw new AppError(
         "Variant already exists",
         "Field validation error : A variant with this product and color already exists",

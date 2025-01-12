@@ -24,8 +24,8 @@ module.exports = {
 
   //  ===================== get all products =========================
 
-  getAllProductsDb: async () => {
-    const findAllProducts = await Product.find().populate("Category");
+  getAllProductsByCategoryDb: async (categoryId) => {
+    const findAllProducts = await Product.find({category:categoryId}).populate("category");
 
     if (findAllProducts.length === 0) {
       throw new AppError(

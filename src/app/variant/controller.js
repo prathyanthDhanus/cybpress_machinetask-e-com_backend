@@ -11,8 +11,8 @@ module.exports = {
   createVariant: async (req, res) => {
     const { productId, color, stock } = req.body;
     const files = req.files;
-
-    if ((!productId || !color || !stock, files.length === 0)) {
+    console.log(files.length)
+    if ((!productId || !color || !stock || files.length === 0)) {
       return res.status(400).json({
         status: "failure",
         message: "Missing required fields",
