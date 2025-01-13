@@ -1,4 +1,4 @@
-const { addToCartDb, getUserCartDb } = require("./services/db");
+const { addToCartDb, getUserCartDb,updateCartDb,deleteCartItemDb } = require("./services/db");
 module.exports = {
   //  ===================== add to cart =========================
 
@@ -62,7 +62,8 @@ module.exports = {
   // ===================== delete item from cart =========================
   deleteCartItem: async (req, res) => {
     const userId = req.user.userId;
-    const { variantId } = req.body;
+    // const { variantId } = req.body;
+    const  variantId  = req.params.variantid;
 
     if (!variantId || !userId) {
       return res.status(400).json({
@@ -73,11 +74,11 @@ module.exports = {
       });
     }
 
-    const updatedCart = await deleteCartItemDb(userId, variantId);
+    const deletedCart = await deleteCartItemDb(userId, variantId);
     return res.status(200).json({
       status: "success",
       message: "Item deleted successfully from cart",
-      data: updatedCart,
+      data: deletedCart,
     });
   },
 };

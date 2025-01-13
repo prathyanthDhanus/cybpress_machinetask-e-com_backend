@@ -50,7 +50,10 @@ module.exports = {
   // ===================== get all products from a user's cart =========================
 
   getUserCartDb: async (userId) => {
-    const findUserCart = await Cart.find({userId:userId});
+    const findUserCart = await Cart.find({userId:userId})  .populate({
+      path: 'items.variantId', 
+      model: 'Variant',
+    });;
     if (!findUserCart) {
       throw new AppError(
         "Products not found",
@@ -101,8 +104,12 @@ module.exports = {
   // ===================== delete item from cart =========================
 
   deleteCartItemDb: async (userId, variantId) => {
-    const userCart = await Cart.findOne({ userId });
-
+    const userCart = await Cart.findOneAndUpdate(
+      { userId }, // Find cart by userId
+      { $pull: { items: { variantId } } }, // Remove the item with the matching variantId
+      { new: true } // Return the updated cart after the operation
+    );
+  
     if (!userCart) {
       throw new AppError(
         "Cart not found",
@@ -110,27 +117,11 @@ module.exports = {
         404
       );
     }
-
-    const updatedItems = userCart.items.filter(
-      (item) => item.variantId.toString() !== variantId
-    );
-
-    if (updatedItems.length === userCart.items.length) {
-      throw new AppError(
-        "Product not found in cart",
-        "Data not found: Product does not exist in the cart.",
-        404
-      );
-    }
-
-    userCart.items = updatedItems;
-
-    userCart.totalAmount = userCart.items.reduce(
-      (sum, item) => sum + item.quantity * item.price,
-      0
-    );
-
+  
+   
+    userCart.totalAmount = userCart.items.reduce((acc, item) => acc + item.price, 0);
     await userCart.save();
+  
     return userCart;
-  },
+  }
 };
