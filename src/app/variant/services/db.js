@@ -1,4 +1,5 @@
 const Variant = require("../model/variantSchema");
+const Product = require("../../product/model/productSchema");
 const AppError = require("../../../middlewares/appError");
 const cloudinary = require("../../../utils/cloudinary");
 
@@ -24,6 +25,12 @@ module.exports = {
       ...variantData,
     });
     await saveVariant.save();
+
+    await Product.findByIdAndUpdate(
+      productId,
+      { $push: { variants: saveVariant._id } },
+      { new: true }
+    );
     return saveVariant;
   },
 

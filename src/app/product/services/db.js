@@ -25,7 +25,9 @@ module.exports = {
   //  ===================== get all products =========================
 
   getAllProductsByCategoryDb: async (categoryId) => {
-    const findAllProducts = await Product.find({category:categoryId}).populate("category");
+    const findAllProducts = await Product.find({ category: categoryId })
+      .populate("category")
+      .populate("variants");
 
     if (findAllProducts.length === 0) {
       throw new AppError(
@@ -40,7 +42,7 @@ module.exports = {
   //  ===================== get product by id =========================
 
   getProductByIdDb: async (productId) => {
-    const findProduct = await Product.findOne(productId);
+    const findProduct = await Product.findOne({_id:productId}).populate("variants");
 
     if (!findProduct) {
       throw new AppError(

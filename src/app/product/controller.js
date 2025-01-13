@@ -40,7 +40,7 @@ module.exports = {
 
   getProductById: async (req, res) => {
     const productId = req.params.productId;
-
+ 
     const fetchProduct = await getProductByIdDb(productId);
     return res.status(200).json({
       status: "success",

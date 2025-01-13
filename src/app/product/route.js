@@ -7,8 +7,8 @@ const Product = require("./controller");
 
 router.post("/",authMiddleware(["admin"]),tryCatch(Product.createProduct));
 
-router.get("/:categoryId",tryCatch(Product.getAllProductsByCategory));
-router.get("/:productId",authMiddleware(["admin","user"]),tryCatch(Product.getProductById));
+router.get("/category/:categoryId",tryCatch(Product.getAllProductsByCategory));
+router.get("/:productId",tryCatch(Product.getProductById));
 
 router.put("/:productId",authMiddleware(["admin"]),tryCatch(Product.updateProduct));
 

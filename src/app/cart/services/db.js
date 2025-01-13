@@ -5,9 +5,9 @@ module.exports = {
   //  ===================== add to cart =========================
 
   addToCartDb: async (cartData) => {
-    const { variantId, userId } = cartData;
+    const { variantId, userId,quantity,price } = cartData;
     const userCart = await Cart.findOne({ userId: userId });
-
+   
     if (userCart) {
       const existingItemIndex = userCart.items.findIndex(
         (item) => item.variantId.toString() === variantId
@@ -50,8 +50,7 @@ module.exports = {
   // ===================== get all products from a user's cart =========================
 
   getUserCartDb: async (userId) => {
-    const findUserCart = await Cart.findById(userId);
-
+    const findUserCart = await Cart.find({userId:userId});
     if (!findUserCart) {
       throw new AppError(
         "Products not found",

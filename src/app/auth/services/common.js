@@ -51,6 +51,7 @@ module.exports = {
 
   userRefreshToken: async (req, res) => {
     const authHeader = req?.headers?.authorization;
+    console.log("authHeader",authHeader);
     if (!authHeader) {
       return res.status(401).json({ error: "Access Token Not Found ❌" });
     }
